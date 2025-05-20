@@ -165,6 +165,7 @@ collector_subdomains += list(collectors.NewCollector.init(args.domain, args.debu
 
 Some improvements are plannified like:
 
+ - Adding option for custom resolvers
  - Adding Bruteforce results to the created Database
  - Improving HTML Page output
  - Adding the ability to select differents output like json, csv, txt, etc...
