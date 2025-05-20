@@ -74,14 +74,15 @@ python3 subrecon.py <domain> [options]
 | `--takeover`                    | Checks identified hosts for potential subdomain takeovers.                                     | `False`                    |
 | `--markovify`                   | Uses Markov chains to identify additional subdomains.                                          | `False`                    |
 | `-ms, --markov-state`           | Markov state size.                                                                             | `3`                        |
-| `-ml, --markov-length`          | Maximum length of Markov substitutions.                                                       | `5`                        |
+| `-ml, --markov-length`          | Maximum length of Markov substitutions.                                                        | `5`                        |
 | `-mq, --markov-quantity`        | Maximum number of Markov results per candidate length.                                         | `5`                        |
 | `-f, --flush`                   | Purges all records of the specified domain from the database.                                  | `False`                    |
 | `--bruteforce`                  | Performs subdomain bruteforce for the target domain.                                           | `False`                    |
 | `--maxdepth`                    | Maximum depth for bruteforce.                                                                  | `3`                        |
 | `--output`                      | Outputs results to an HTML file.                                                               | `None`                     |
+| `--silent`                      | Disables Banner print.                                                                         | `False`                    |
 | `--debug`                       | Enables debug messages.                                                                        | `False`                    |
-| `--commonn`                     | Checks subdomains with common prefixes.                                                       | `False`                    |
+| `--commonn`                     | Checks subdomains with common prefixes.                                                        | `False`                    |
 | `-zt, --zone-transfer`          | Attempts zone transfers from identified name servers.                                          | `False`                    |
 
 ---
