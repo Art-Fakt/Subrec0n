@@ -6,7 +6,7 @@ import os
 
 def brute_force_subdomains(domain, threads, maxdepth=3):
 
-    charset = 'abcdefghijklmnopqrstuvwxyz'
+    charset = 'abcdefghijklmnopqrstuvwxyz0123456789'
     entries = []
 
     for letter1 in charset:
