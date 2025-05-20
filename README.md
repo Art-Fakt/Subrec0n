@@ -42,7 +42,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-3. Configure API keys in `config.ini` (if required).
+3. Configure API keys in `config.ini` (if you want).
 
 ---
 
@@ -117,12 +117,6 @@ python3 subrecon.py example.com --permutate --output results.html
 
 ```bash
 python3 subrecon.py example.com --portscan --takeover
-```
-
-### Complete scanning options exemple
-
-```bash
-python3 subrecon.py example.com --reverse --ripe --takeover --portscan -p top1000 --bruteforce --common --output Results.html --markovify
 ```
 
 ### Only Bruteforce (Need to improve rapidity for maxdepth > 3)
