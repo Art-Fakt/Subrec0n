@@ -89,7 +89,7 @@ python3 subrecon.py <domain> [options]
 
 ## Examples
 
-### Passive Collection
+### Passive Collection (with or whithout API key configured in config.ini)
 
 ```bash
 python3 subrecon.py example.com
