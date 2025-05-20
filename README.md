@@ -69,7 +69,7 @@ python3 subrecon.py <domain> [options]
 | `-ripe, --ripe`                 | Queries the RIPE database for networks to use in reverse lookups.                              | `False`                    |
 | `-r, --ranges`                  | Comma-separated IP ranges for reverse DNS lookups.                                             | `None`                     |
 | `-or, --only-ranges`            | Uses only the provided ranges with `-r` or `--ripe`.                                           | `False`                    |
-| `--portscan`                    | Scans resolved public IP addresses for open ports.                                             | `False`                    |
+| `--portscan`                    | Scan resolved public IP addresses for open ports.                                             | `False`                    |
 | `-p, --ports`                   | Ports to scan (`default`, `topports`, `top100`, `top1000`, or custom list).                    | `medium`                   |
 | `--takeover`                    | Checks identified hosts for potential subdomain takeovers.                                     | `False`                    |
 | `--markovify`                   | Uses Markov chains to identify additional subdomains.                                          | `False`                    |
@@ -79,9 +79,9 @@ python3 subrecon.py <domain> [options]
 | `-f, --flush`                   | Purges all records of the specified domain from the database.                                  | `False`                    |
 | `--bruteforce`                  | Performs subdomain bruteforce for the target domain.                                           | `False`                    |
 | `--maxdepth`                    | Maximum depth for bruteforce.                                                                  | `3`                        |
-| `--output`                      | Outputs results to an HTML file.                                                               | `None`                     |
-| `--silent`                      | Disables Banner print.                                                                         | `False`                    |
-| `--debug`                       | Enables debug messages.                                                                        | `False`                    |
+| `--output`                      | Output results to an HTML file.                                                               | `None`                     |
+| `--silent`                      | Disable Banner print.                                                                         | `False`                    |
+| `--debug`                       | Enable debug messages.                                                                        | `False`                    |
 | `--commonn`                     | Checks subdomains with common prefixes.                                                        | `False`                    |
 | `-zt, --zone-transfer`          | Attempts zone transfers from identified name servers.                                          | `False`                    |
 
