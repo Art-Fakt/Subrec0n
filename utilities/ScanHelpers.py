@@ -17,7 +17,9 @@ from socket import getaddrinfo, gethostbyaddr, socket, AF_INET, AF_INET6, SOCK_S
 from utilities.DatabaseHelpers import Record, Wildcard, Resolution, Unresolved, ASN, Network, OpenPort
 import utilities.MiscHelpers
 from colorama import Fore, Style
-
+import subprocess
+import os
+import shutil
 
 def zoneTransfer(db, domain):
 	print(Fore.CYAN + Style.BRIGHT + "\n[+]-Attempting to zone transfer from the identified nameservers..." + Style.RESET_ALL)
@@ -753,3 +755,44 @@ def checkCommonPrefix(db, domain, subdomains_found_list, threads):
                     print(Fore.GREEN + Style.BRIGHT + f"  [+] Valid subdomain found: {futures[future]}" + Style.RESET_ALL)
             except Exception:
                 continue
+
+def take_screenshots_with_nuclei(domain):
+	
+    if shutil.which("nuclei") is None:
+        print(Fore.RED + "[ERROR] nuclei is not installed or not in your PATH." + Style.RESET_ALL)
+        print(Fore.YELLOW + "You can install it with:" + Style.RESET_ALL)
+        print(Fore.YELLOW + r"  curl -s https://api.github.com/repos/projectdiscovery/nuclei/releases/latest | grep browser_download_url | grep Linux | cut -d '\"' -f 4 | wget -i -" + Style.RESET_ALL)
+        print(Fore.YELLOW + r"  chmod +x nuclei && sudo mv nuclei /usr/local/bin/" + Style.RESET_ALL)
+        return
+
+    urls_file = f"Results/{domain}/Final_urls.txt"
+    screenshots_dir = f"Results/{domain}/Screenshots"
+    os.makedirs(screenshots_dir, exist_ok=True)
+
+    # Lis les URLs à scanner
+    if not os.path.exists(urls_file):
+        print(Fore.RED + f"[ERROR] URLs file not found: {urls_file}" + Style.RESET_ALL)
+        return
+
+    # Prépare un fichier temporaire pour nuclei
+    tmp_urls = os.path.join(screenshots_dir, "urls.txt")
+    with open(urls_file, "r") as fin, open(tmp_urls, "w") as fout:
+        for line in fin:
+            url = line.strip()
+            if url:
+                fout.write(url + "\n")
+
+    # Commande nuclei
+    cmd = [
+        "nuclei",
+        "-headless",
+        "-id", "screenshot",
+        "-list", tmp_urls,
+        "-V", f"dir={screenshots_dir}"
+    ]
+    print(Fore.CYAN + f"[+] Running nuclei for screenshots..." + Style.RESET_ALL)
+    try:
+        subprocess.run(cmd, check=True)
+        print(Fore.CYAN + f"[+] Screenshots saved in: {screenshots_dir}" + Style.RESET_ALL)
+    except Exception as e:
+        print(Fore.RED + f"[ERROR] Nuclei screenshots failed: {e}" + Style.RESET_ALL)

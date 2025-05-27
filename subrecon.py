@@ -111,6 +111,7 @@ if __name__ == "__main__":
 	parser.add_argument("--commonn", action="store_true", dest="commonn", help="check subdomains with common prefixes", default=False)
 	parser.add_argument("-zt", "--zone-transfer", action="store_true", dest="zoneTransfer", help="attempt to zone transfer from identified name servers", default=False)	
 	parser.add_argument("--silent", action="store_true", dest="silent", help="don't print banner", default=False)
+	parser.add_argument("--screenshot", action="store_true", dest="screenshot", help="Take screenshots of all found URLs after portscan (Need Nuclei installed)", default=False)
 	args = parser.parse_args()
 
 	# if args.resolvers:
@@ -258,6 +259,9 @@ if __name__ == "__main__":
 
 			if args.portscan:
 				submodules.PortScan.init(db, args.domain, args.ports, args.threads)
+
+			if args.portscan and args.screenshot:
+				utilities.MiscHelpers.take_screenshots_with_nuclei(args.domain)
 
 			if args.takeover:
 				submodules.TakeOver.init(db, args.domain, old_takeovers, args.threads)
