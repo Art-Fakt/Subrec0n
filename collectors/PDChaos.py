@@ -7,7 +7,7 @@ import os
 
 def init(domain, debug=False):
 
-	tmp_dir = f"Results/{domain}.tmp"
+	tmp_dir = f"Results/{domain}/.tmp"
 	os.makedirs(tmp_dir, exist_ok=True)
 	tmp_file = os.path.join(tmp_dir, f"{__name__.split('.')[-1]}.done")
 

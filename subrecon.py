@@ -261,7 +261,7 @@ if __name__ == "__main__":
 				submodules.PortScan.init(db, args.domain, args.ports, args.threads)
 
 			if args.portscan and args.screenshot:
-				utilities.MiscHelpers.take_screenshots_with_nuclei(args.domain)
+				utilities.ScanHelpers.take_screenshots_with_nuclei(args.domain)
 
 			if args.takeover:
 				submodules.TakeOver.init(db, args.domain, old_takeovers, args.threads)

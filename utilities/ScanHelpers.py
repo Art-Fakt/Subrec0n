@@ -776,23 +776,43 @@ def take_screenshots_with_nuclei(domain):
 
     # Prépare un fichier temporaire pour nuclei
     tmp_urls = os.path.join(screenshots_dir, "urls.txt")
+    urls = []
     with open(urls_file, "r") as fin, open(tmp_urls, "w") as fout:
         for line in fin:
             url = line.strip()
             if url:
+                urls.append(url)
                 fout.write(url + "\n")
 
-    # Commande nuclei
-    cmd = [
-        "nuclei",
-        "-headless",
-        "-id", "screenshot",
-        "-list", tmp_urls,
-        "-V", f"dir={screenshots_dir}"
-    ]
-    print(Fore.CYAN + f"[+] Running nuclei for screenshots..." + Style.RESET_ALL)
-    try:
-        subprocess.run(cmd, check=True)
-        print(Fore.CYAN + f"[+] Screenshots saved in: {screenshots_dir}" + Style.RESET_ALL)
-    except Exception as e:
-        print(Fore.RED + f"[ERROR] Nuclei screenshots failed: {e}" + Style.RESET_ALL)
+    if not urls:
+        print(Fore.YELLOW + "\n[!] No URLs to screenshot." + Style.RESET_ALL)
+        return
+
+    print(Fore.CYAN + f"\n[+] Taking screenshots for each resolved Urls..." + Style.RESET_ALL)
+
+    # Barre de progression manuelle (nuclei ne fournit pas de feedback par URL)
+    with tqdm(total=len(urls), desc="  --> Progress", dynamic_ncols=True) as pbar:
+        # On lance nuclei une seule fois, mais on simule la progression
+        try:
+            proc = subprocess.Popen(
+                [
+                    "nuclei",
+                    "-headless",
+                    "-id", "screenshot",
+                    "-list", tmp_urls,
+                    "-V", f"dir={screenshots_dir}"
+                ],
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+                universal_newlines=True
+            )
+            for line in proc.stdout:
+                if "Progress" in line.lower():
+                    pbar.update(1)
+            proc.wait()
+            if proc.returncode == 0:
+                print(Fore.WHITE + f"  [+] Screenshots saved in: " + Fore.GREEN + f"{screenshots_dir}" + Style.RESET_ALL)
+            else:
+                print(Fore.RED + f"[ERROR] Nuclei screenshots failed (exit code {proc.returncode})" + Style.RESET_ALL)
+        except Exception as e:
+            print(Fore.RED + f"[ERROR] Nuclei screenshots failed: {e}" + Style.RESET_ALL)
