@@ -233,17 +233,9 @@ if __name__ == "__main__":
 			if args.bruteforce:
 				submodules.Bruteforce.brute_force_subdomains(args.domain, args.threads, args.maxdepth)
 
-			if args.output:
-				print(Fore.CYAN + Style.BRIGHT + f"\n[+]-Generating HTML output..." + Style.RESET_ALL)
-				structured_findings = utilities.MiscHelpers.structure_findings(findings)  # Structure les données
-				utilities.MiscHelpers.generate_html_output(db, args.domain, args.output)
-
 			if args.commonn:
 				print(Fore.CYAN + Style.BRIGHT + "\n[+]-Checking subdomains with common prefixes..." + Style.RESET_ALL)
 				utilities.ScanHelpers.checkCommonPrefix(db, args.domain, findings, args.threads)
-			
-			del findings
-			collect()
 
 			if args.permutate:
 				submodules.Permutations.init(db, args.domain, args.permutation_wordlist, args.hideWildcards, args.threads)
@@ -253,6 +245,14 @@ if __name__ == "__main__":
 			
 			if args.markovify:
 				submodules.Markov.init(db, args.domain, args.markov_state, args.markov_length, args.markov_quantity, args.hideWildcards, args.threads)
+
+			if args.output:
+				print(Fore.CYAN + Style.BRIGHT + f"\n[+]-Generating HTML output..." + Style.RESET_ALL)
+				structured_findings = utilities.MiscHelpers.structure_findings(findings)  # Structure les données
+				utilities.MiscHelpers.generate_html_output(db, args.domain, args.output)
+
+			del findings
+			collect()
 
 			utilities.ScanHelpers.massRDAP(db, args.domain, args.threads)
 

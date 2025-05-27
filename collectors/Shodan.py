@@ -7,6 +7,16 @@ from colorama import Fore, Style
 import os
 
 def init(domain, debug=False):
+
+	tmp_dir = f"Results/{domain}.tmp"
+	os.makedirs(tmp_dir, exist_ok=True)
+	tmp_file = os.path.join(tmp_dir, f"{__name__.split('.')[-1]}.done")
+
+	if os.path.exists(tmp_file):
+		if debug:
+			print(f"[DEBUG] Skipping {__name__.split('.')[-1]}: already done.")
+		return []
+
 	SD = []
 
 	print(Fore.CYAN + Style.BRIGHT + "[+]-Searching in Shodan..." + Style.RESET_ALL)
@@ -51,6 +61,10 @@ def init(domain, debug=False):
 			print(Fore.CYAN + f"  --> Subdomains saved to: {output_file}" + Style.RESET_ALL)
 
 			print("  --> {0}: {1}".format(colored("Subdomains found", "white"), colored(len(SD), "green")))
+
+			with open(tmp_file, "w") as f:
+				f.write("done\n")
+
 			return SD
 
 		except shodan.exception.APIError as err:
