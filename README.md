@@ -84,6 +84,7 @@ python3 subrecon.py <domain> [options]
 | `--debug`                       | Enable debug messages.                                                                        | `False`                    |
 | `--commonn`                     | Checks subdomains with common prefixes.                                                        | `False`                    |
 | `-zt, --zone-transfer`          | Attempts zone transfers from identified name servers.                                          | `False`                    |
+| `--screenshot`                  | Take screenshots for all found resolved URLs                                                   | `False`                    |
 
 ---
 
