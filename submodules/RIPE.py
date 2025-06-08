@@ -13,7 +13,7 @@ def init(domain):
 
 	try:
 		response = requests.get(searchUrl, headers=headers)
-		IPranges = findall(f"value\"\s:\s\"(\d+\.\d+\.\d+\.\d+\s-\s\d+\.\d+\.\d+\.\d+)\"", response.text)
+		IPranges = findall(r"value\"\s:\s\"(\d+\.\d+\.\d+\.\d+\s-\s\d+\.\d+\.\d+\.\d+)\"", response.text)
 
 		for arange in IPranges:
 			startip = ipaddress.IPv4Address(arange.split(" - ")[0])

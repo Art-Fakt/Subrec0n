@@ -199,7 +199,7 @@ if __name__ == "__main__":
 			collector_subdomains += list(collectors.ZoomEye.init(args.domain))
 			collector_subdomains += list(collectors.UrlScan.init(args.domain, args.debug))
 			#collector_subdomains += list(collectors.Hudson_Rock.init(args.domain, args.debug))
-			collector_subdomains += list(collectors.Dorki.init(args.domain, args.debug))
+			#collector_subdomains += list(collectors.Dorki.init(args.domain, args.debug))
 
 		if args.wordlist:
 			wordlist_subdomains = utilities.MiscHelpers.loadWordlist(args.domain, args.wordlist)

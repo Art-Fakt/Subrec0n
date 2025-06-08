@@ -681,7 +681,7 @@ def identify(domain, ARecords, CNAMERecords):
 	for entry in CNAMERecords:
 		CNAME = str(entry)[:-1]
 
-		if (findall(f".*s3.*.amazonaws\.com", CNAME)):
+		if (findall(r".*s3.*.amazonaws\.com", CNAME)):
 			outcome = amazonS3(domain, ARecords, CNAME)
 
 		elif "bitbucket.io" in CNAME:
